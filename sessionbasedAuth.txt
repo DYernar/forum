@@ -1,0 +1,8 @@
+https://www.sohamkamani.com/blog/2018/03/25/golang-session-authentication/
+https://stackoverflow.com/questions/35252253/golang-session-based-authentication
+https://habr.com/ru/post/359078/
+https://qna.habr.com/q/314166
+
+
+gccgo:
+https://sohlich.github.io/post/go_makefile/

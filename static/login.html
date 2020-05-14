@@ -1,0 +1,90 @@
+{{define "login"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Document</title>
+
+    <style>
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+
+    </style>
+</head>
+<body>
+    {{template "unloggedheader"}}
+    {{if not .Success}}
+    <div class="container" align="center">
+      <h1>Authorization{{.Response}}</h1>
+      <form method="POST" action="/login" onsubmit="return validateForm()">
+        <div class="form-group">
+          <label for="username">Email</label>
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            placeholder="email"
+            name="email"
+            value="{{.User.Email}}"
+          />
+          <span><p id="userWarn" style="color: red;"></p></span>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="password"
+            name="password"
+          />
+          <span><p id="passWarn" style="color: red;"></p></span>
+        </div>
+        <span><b><p id="userWarn" style="color: red;">{{.Response}}</p></b></span>
+        <button type="submit" class="btn btn-success" onclick="check()">
+          login
+        </button>
+      </form>
+    </div>
+      {{else}}
+      <div class="container">
+        <h1>Successfully logged in</h1>
+        <h3>hello {{.User.Username}}{{.User.UserID}}{{.User.Email}}</h3>
+      </div>
+      {{end}}
+      <script>
+                function validateForm() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var p = 0;
+        if (username.length == 0) {
+          var userWarn = document.getElementById("userWarn");
+          userWarn.innerHTML =
+            "username can't be empty";
+          p++;
+        }
+
+        if (password.length == 0) {
+            var passWarn = document.getElementById("passWarn");
+          passWarn.innerHTML =
+            "password can't be empty";
+          p++;
+        }
+
+        if (p == 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      </script>
+</body>
+</html>
+{{end}}

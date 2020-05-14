@@ -1,0 +1,104 @@
+{{define "index"}}
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body> 
+    {{if not .LoggedIn}}
+      {{template "unloggedheader"}}
+    {{else}}
+      {{template "loggedheader"}}
+    {{end}}
+    <div class="jumbotron">
+      <div class="container">
+        <form action="/" method="GET">
+          <div class="input-group">
+            <input type="text" class="form-control" name="title" id="title" placeholder="поиск..." list="postlist"/>
+            <div class="input-group-btn">
+              <button class="btn btn-success" type="submit">
+                search
+              </button>
+            </div>
+          </div>
+          <datalist id="postlist">
+            {{range $post := .Posts}}
+            <option value="{{$post.Title}}">{{$post.Title}}</option>
+            {{end}}
+          </datalist>
+        </form>
+      </div>
+      <br>
+      <div class="container">
+        <form action="/" method="GET">
+          <div class="form-group">
+            <input type="checkbox" name="liked">
+            <label for="liked">Liked by me</label>
+          </div>
+
+          <div class="form-group">
+            <input type="checkbox" name="mypost">
+            <label for="mypost">My posts</label>
+          </div>
+            <div class="form-group">
+              <label for="category">Choose category</label>
+              <select name="category" id="category" class="form-control">
+                <option value=""></option>
+                  {{range $cat := .Categories}}
+                  <option value="{{$cat}}">{{$cat}}</option>
+                  {{end}}
+              </select>
+          </div>
+          <button class="btn btn-info">Use filter</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container">
+      {{range $post := .Posts}}
+      <div id="postid{{$post.PostID}}"></div>
+      <h3>{{$post.Title}}</h3>
+      <p>{{$post.Text}}</p>
+      <div class="container">
+        <div class="col-md-10">
+          <div class="col-md-2">category: {{$post.Category}}</div>
+          <div class="col-md-4">{{len $post.Likes}} <a href="/like?id={{$post.PostID}}"><i class="glyphicon glyphicon-thumbs-up"></i></a>  {{len $post.Dislikes}} <a href="/dislike?id={{$post.PostID}}"><i class="glyphicon glyphicon-thumbs-up"></i></a> {{len $post.Comments}} <a href="/post?id={{$post.PostID}}">comments</a></div>
+        </div>
+        <div class="col-md-2">
+          <a href="/post?id={{$post.PostID}}">
+            <button class="btn btn-link">Go to thread</button>
+          </a>
+        </div>
+      </div>
+      <hr>
+      {{end}}
+    </div>
+    <div class="container">
+      <hr>
+      <footer>
+        <p>&copy; Company 2015</p>
+      </footer>
+    </div>      
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    </body>
+</html>
+{{end}}

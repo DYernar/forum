@@ -1,0 +1,63 @@
+{{define "post"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Document</title>
+</head>
+<body>
+    {{if not .LoggedIn}}
+        {{template "unloggedheader"}}
+    {{else}}
+        {{template "loggedheader"}}
+    {{end}}
+    <div class="jumbotron">
+
+    </div>
+    <div class="container">
+        <h1>{{.Post.Title}}</h1>
+        <div class="container">
+            <p>{{.Post.Text}}</p>
+        </div>
+    </div>
+    {{if not .LoggedIn}}
+    <div class="container">
+        <h3>Log in to add comment</h3>
+    </div>
+    {{else}}
+    <br><hr><br>
+    <div class="container">
+        <form action="/comment?id={{.Post.PostID}}" method="POST">
+            <div class="form-group">
+                <textarea name="comment" id="comment" rows="3" class="form-control rounded-0" style="border: 1px solid green;" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Add Comment</button>
+        </form>
+    </div>
+    {{end}}
+
+    <div class="container">
+        {{if not .Post.Comments}}
+            <h3>There are no comments</h3>
+        {{else}}
+        <h3>Comments:</h3>
+        {{range $comment := .Post.Comments}}
+        <div class="container">
+            <div class="col-md-8" style="border: 1px solid rgb(231, 231, 231); border-radius: 5px;">
+                <h3 class="col-md-6" style="font-weight: 400;"><strong>{{$comment.User.Username}}:</strong></h3>
+                <p class="col-md-8">{{$comment.Comment}}</p>
+              </div>
+        </div>
+        <br>
+
+        {{end}}
+        {{end}}
+    </div>
+</body>
+</html>
+{{end}}

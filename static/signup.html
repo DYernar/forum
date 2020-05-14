@@ -1,0 +1,152 @@
+{{define "signup"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <title>Document</title>
+</head>
+<body>
+    {{template "unloggedheader"}}
+    <div class="jumbotron">
+        <div class="container">
+            {{if not .Success}}
+            <div class="container" align="center">
+                <h1>Registration</h1>
+                <form method="POST" action="/signup" onsubmit="return validateForm()">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" id="username" name="username" placeholder="username" value="{{.User.Username}}">
+                        <span><p style="color: red;" id="userWarn">{{if not .UsernameExists}}  {{else}}Username exists{{end}}</p></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="email" id="email" name="email" placeholder="email" value="{{.User.Email}}">
+                        <span><p style="color: red;" id="emailWarn">{{if not .EmailExists}} {{else}} Email exists  {{end}}</p></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" name="password" placeholder="password">
+                        <span><p style="color: red;" id="passWarn"></p></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="re-password">Repeat password</label>
+                        <input class="form-control" type="password" id="re-password" name="password" placeholder="password">
+                        <span><p style="color: red;" id="re-passWarn"></p></span>
+                    </div>
+
+                  <button type="submit" class="btn btn-success" onclick="check()"> signup </button>
+                </form>
+            </div>
+            {{else}}
+            <div class="container">
+                <h1>Successfully Registered!</h1>
+            </div>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            {{end}}
+        </div>
+    </div>
+
+    <script>
+        var p = document.getElementById("password")
+        var w = document.getElementById("passWarn")
+        p.oninput = function() {
+            var num = 0
+            var symb = 0
+            var l = 0
+            var u = 0
+            if (p.value.match(/[a-z]+/)) {
+                l++
+            }
+
+            if (p.value.match(/[0-9]+/)) {
+                num++
+            }
+
+            if (p.value.match(/[A-Z]+/)) {
+                u++
+            }
+
+            if (p.value.match(/[$@#&!]+/)) {
+                symb++
+            }
+
+            if (p.value.length <= 5 && u == 0) {
+                w.style.color = "red"
+                w.innerHTML = "weak password!"
+            } else if (p.value.length>=5 && l > 0 && u > 0 && num>0 && symb>0){
+                w.style.color = "green"
+                w.innerHTML = "strong password!"
+            } else {
+                w.style.color = "grey"
+                w.innerHTML = "good password!"
+            }
+        }
+
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+            var Repassword = document.getElementById("re-password").value;
+            var p = 0;
+            if (username.length == 0) {
+                var userWarn = document.getElementById("userWarn");
+                userWarn.innerHTML ="username can't be empty";
+                p++;
+            } else {
+                var userWarn = document.getElementById("userWarn");
+                userWarn.innerHTML ="";
+            }
+    
+            if (password.length == 0) {
+                var passWarn = document.getElementById("passWarn");
+                passWarn.innerHTML = "password can't be empty";
+                p++;
+            } else {
+                var passWarn = document.getElementById("passWarn");
+                passWarn.innerHTML = "";
+            }
+
+            if (email.length == 0) {
+                var emailWarn = document.getElementById("emailWarn");
+                emailWarn.innerHTML = "email can't be empty";
+                p++;
+            } else {
+                var emailWarn = document.getElementById("emailWarn");
+                emailWarn.innerHTML = "";
+            }
+
+            if (password != Repassword) {
+                var RepassWarn = document.getElementById("re-passWarn");
+                RepassWarn.innerHTML = "passwords are not same!";
+                p++;
+            } else {
+                var RepassWarn = document.getElementById("re-passWarn");
+                RepassWarn.innerHTML = "";
+            }
+            
+    
+            if (p == 0) {
+                return true;
+            } else {
+                return false;
+            }
+      }
+      </script>
+</body>
+</html>
+{{end}}
