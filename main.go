@@ -5,13 +5,17 @@ import(
 	"os"
 	"forum/controllers"
 	"fmt"
+	"os/exec"
 )
 
 
 func main() {
+	cmd := exec.Command("go", "vet")
+	cmd.Env = append(cmd.Env, "CGO_ENABLED=0")
+
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "7070"
+		port = "9090"
 	}
 
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
