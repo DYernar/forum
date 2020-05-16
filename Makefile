@@ -29,4 +29,4 @@ GOCMD=go
 			CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_UNIX) -v
     docker-build:
 			docker build -t forum .
-			docker run -it -p 9090:9090 forum 
+			docker run -d -p 9090:9090 forum 
