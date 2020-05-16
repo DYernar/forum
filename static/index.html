@@ -7,7 +7,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
             body {
@@ -78,7 +78,7 @@
       <div class="container">
         <div class="col-md-10">
           <div class="col-md-2">category: {{$post.Category}}</div>
-          <div class="col-md-4">{{len $post.Likes}} <a href="/like?id={{$post.PostID}}"><i class="glyphicon glyphicon-thumbs-up"></i></a>  {{len $post.Dislikes}} <a href="/dislike?id={{$post.PostID}}"><i class="glyphicon glyphicon-thumbs-up"></i></a> {{len $post.Comments}} <a href="/post?id={{$post.PostID}}">comments</a></div>
+          <div class="col-md-4">{{len $post.Likes}} <a href="/like?id={{$post.PostID}}"><i class="glyphicon glyphicon-thumbs-up"></i></a>  {{len $post.Dislikes}} <a href="/dislike?id={{$post.PostID}}"><i class="glyphicon glyphicon-thumbs-down"></i></a> {{len $post.Comments}} <a href="/post?id={{$post.PostID}}">comments</a></div>
         </div>
         <div class="col-md-2">
           <a href="/post?id={{$post.PostID}}">
