@@ -15,7 +15,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "9090"
+		port = "8001"
 	}
 
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
