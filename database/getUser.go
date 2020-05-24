@@ -1,11 +1,11 @@
 package database
 
-import(
-	model "forum/model"
-	"fmt"
+import (
 	"database/sql"
-	"golang.org/x/crypto/bcrypt"
+	"fmt"
+	model "forum/model"
 
+	"golang.org/x/crypto/bcrypt"
 )
 
 func GetAllUsers() []model.User {
@@ -17,14 +17,17 @@ func GetAllUsers() []model.User {
 	var all []model.User
 	for row.Next() {
 		var u model.User
-		row.Scan(&u.Username,  &u.Email, &u.Password)
-		all = append(all,u)
+		row.Scan(&u.Username, &u.Email, &u.Password)
+		all = append(all, u)
 	}
 	db.Close()
 	return all
 }
 
 func CheckCredentials(email, password string) bool {
+	if email == "" || password == "" {
+		return false
+	}
 	db, err := DbConnection()
 	if err != nil {
 		fmt.Println("db connection error: ", err.Error())
@@ -48,9 +51,9 @@ func CheckCredentials(email, password string) bool {
 }
 
 func CheckPasswordHash(password, hash string) bool {
-    err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-    return err == nil
-}	
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
 
 func GetUserByCredentials(username, password string) model.User {
 	var user model.User
@@ -71,7 +74,6 @@ func GetUserByCredentials(username, password string) model.User {
 	db.Close()
 	return user
 }
-
 
 func GetUserByName(username string) model.User {
 	var user model.User

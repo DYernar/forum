@@ -1,13 +1,12 @@
 package controller
 
-import(
-	"net/http"
-	"html/template"
+import (
+	"fmt"
 	database "forum/database"
 	model "forum/model"
-	"fmt"
+	"html/template"
+	"net/http"
 )
-
 
 func Signup(w http.ResponseWriter, r *http.Request) {
 
@@ -30,7 +29,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 			newUser.Email = r.FormValue("email")
 			name, err := database.UsernameExists(newUser.Username)
 			email, err := database.EmailExists(newUser.Email)
-			if !name && !email && err == nil{
+			if !name && !email && err == nil {
 				if database.Signup(newUser) {
 					fmt.Println("registered")
 					response.Response = "Sucess"
@@ -56,8 +55,6 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 			BadRequest(w, r)
 		}
 	} else {
-		NotFound(w,r)
+		NotFound(w, r)
 	}
 }
-
-

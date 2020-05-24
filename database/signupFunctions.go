@@ -5,11 +5,14 @@ import (
 	"fmt"
 	model "forum/model"
 
+	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
-    _ "github.com/mattn/go-sqlite3"
 )
 
 func UsernameExists(name string) (bool, error) {
+	if name == "" {
+		return false, nil
+	}
 	db, err := DbConnection()
 	if err != nil {
 		fmt.Println("db connection error: ", err.Error())
@@ -29,9 +32,12 @@ func UsernameExists(name string) (bool, error) {
 	}
 	defer db.Close()
 	return true, nil
-} 
+}
 
 func EmailExists(email string) (bool, error) {
+	if email == "" {
+		return false, nil
+	}
 	db, err := DbConnection()
 	if err != nil {
 		fmt.Println("db connection error: ", err.Error())
@@ -51,7 +57,7 @@ func EmailExists(email string) (bool, error) {
 	}
 	defer db.Close()
 	return true, nil
-} 
+}
 
 func Signup(user model.User) bool {
 	db, err := DbConnection()

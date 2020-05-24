@@ -1,17 +1,15 @@
 package controller
 
-import(
-	"net/http"
+import (
 	"html/template"
+	"net/http"
 )
-
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(404)
 	t := template.Must(template.New("404").ParseFiles("static/404.html", "static/header.html"))
 	t.Execute(w, nil)
 }
-
 
 func BadRequest(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(500)
