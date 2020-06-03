@@ -1,13 +1,12 @@
 package main
 
-import(
+import (
+	"fmt"
+	controller "forum/controllers"
 	"net/http"
 	"os"
-	"forum/controllers"
-	"fmt"
 	"os/exec"
 )
-
 
 func main() {
 	cmd := exec.Command("go", "vet")
@@ -30,8 +29,8 @@ func main() {
 	http.HandleFunc("/comment", controller.Comment)
 	http.HandleFunc("/like", controller.Like)
 	http.HandleFunc("/dislike", controller.Dislike)
+	http.HandleFunc("/commentlike", controller.CommentLike)
 	http.HandleFunc("/drop", controller.Drop)
-
 
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {

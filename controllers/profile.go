@@ -1,12 +1,11 @@
 package controller
 
-import(
-	"net/http"
-	"html/template"
+import (
 	database "forum/database"
 	model "forum/model"
+	"html/template"
+	"net/http"
 )
-
 
 func Profile(w http.ResponseWriter, r *http.Request) {
 
@@ -25,7 +24,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 			t := template.Must(template.New("profile").ParseFiles("static/profile.html", "static/header.html"))
 			t.Execute(w, allData)
 		} else if r.Method == "POST" {
-			
+
 			r.ParseForm()
 			var newPost model.Post
 			user := database.GetUserByName(uname)
@@ -33,7 +32,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 			newPost.Text = r.FormValue("text")
 			newPost.Title = r.FormValue("title")
 			newPost.Category = r.FormValue("category")
-			
+
 			database.InsertPost(newPost)
 			http.Redirect(w, r, "/profile", http.StatusSeeOther)
 
@@ -41,6 +40,6 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 			BadRequest(w, r)
 		}
 	} else {
-		NotFound(w,r)
+		NotFound(w, r)
 	}
 }

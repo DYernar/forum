@@ -1,10 +1,9 @@
 package controller
 
-import(
-	"net/http"
+import (
 	database "forum/database"
+	"net/http"
 )
-
 
 func Drop(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/drop" {
@@ -14,6 +13,6 @@ func Drop(w http.ResponseWriter, r *http.Request) {
 			BadRequest(w, r)
 		}
 	} else {
-		NotFound(w,r)
+		NotFound(w, r)
 	}
 }

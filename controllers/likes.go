@@ -1,16 +1,15 @@
 package controller
 
-import(
-	"net/http"
-	database "forum/database"
-	"strconv"
+import (
 	"fmt"
+	database "forum/database"
+	"net/http"
+	"strconv"
 )
-
 
 func Like(w http.ResponseWriter, r *http.Request) {
 	username, auth := IsAuthorized(r)
-		
+
 	if !auth {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
@@ -27,13 +26,13 @@ func Like(w http.ResponseWriter, r *http.Request) {
 			BadRequest(w, r)
 		}
 	} else {
-		NotFound(w,r)
+		NotFound(w, r)
 	}
 }
 
 func Dislike(w http.ResponseWriter, r *http.Request) {
 	username, auth := IsAuthorized(r)
-		
+
 	if !auth {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
@@ -43,7 +42,7 @@ func Dislike(w http.ResponseWriter, r *http.Request) {
 				r.ParseForm()
 				postid, _ := strconv.Atoi(r.FormValue("id"))
 				user := database.GetUserByName(username)
-	
+
 				database.LikePost(user.UserID, postid, false)
 				http.Redirect(w, r, "/#postid"+r.FormValue("id"), http.StatusSeeOther)
 			} else {
@@ -53,6 +52,6 @@ func Dislike(w http.ResponseWriter, r *http.Request) {
 			BadRequest(w, r)
 		}
 	} else {
-		NotFound(w,r)
+		NotFound(w, r)
 	}
 }

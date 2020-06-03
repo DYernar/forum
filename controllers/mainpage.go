@@ -1,12 +1,12 @@
 package controller
 
-import(
-	"net/http"
-	"html/template"
-	model "forum/model"
-	database "forum/database"
-	"strings"
+import (
 	"fmt"
+	database "forum/database"
+	model "forum/model"
+	"html/template"
+	"net/http"
+	"strings"
 )
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +14,7 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			r.ParseForm()
 			title := r.FormValue("title")
-			
+
 			var allPosts model.AllData
 			allPosts.Posts = database.GetAllPosts()
 			allPosts.Categories = []string{"Books", "Movies", "Music", "Sport"}
@@ -26,7 +26,7 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 			}
 
 			category := r.FormValue("category")
-
+			fmt.Println(category)
 			uname, auth := IsAuthorized(r)
 
 			if auth {
@@ -42,7 +42,7 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 								liked = true
 								break
 							}
-						} 
+						}
 						if !liked {
 							allPosts.Posts = append(allPosts.Posts[:i], allPosts.Posts[i+1:]...)
 							i--
@@ -63,19 +63,19 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 
 			if category != "" {
 				for i := 0; i < len(allPosts.Posts); i++ {
-					if allPosts.Posts[i].Category != category {
+					if strings.ToLower(allPosts.Posts[i].Category) != strings.ToLower(category) {
 						allPosts.Posts = append(allPosts.Posts[:i], allPosts.Posts[i+1:]...)
 						i--
 					}
 				}
 			}
-			allPosts.LoggedIn = auth			
+			allPosts.LoggedIn = auth
 			t := template.Must(template.New("index").ParseFiles("static/index.html", "static/header.html"))
 			t.Execute(w, allPosts)
 		} else {
 			BadRequest(w, r)
 		}
 	} else {
-		NotFound(w,r)
+		NotFound(w, r)
 	}
 }

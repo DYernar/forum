@@ -3,9 +3,8 @@ package database
 import (
 	"fmt"
 
-    _ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
-
 
 func LikePost(userid int, postid int, like bool) bool {
 	db, err := DbConnection()
@@ -41,7 +40,7 @@ func LikePost(userid int, postid int, like bool) bool {
 			fmt.Println(err)
 			return false
 		}
-	
+
 		likes.Exec(userid, postid, like)
 	} else {
 		dislikes := GetUserDislikes(userid, postid)
@@ -67,11 +66,9 @@ func LikePost(userid int, postid int, like bool) bool {
 			fmt.Println(err)
 			return false
 		}
-	
+
 		likes.Exec(userid, postid, false)
 	}
-
-
 
 	db.Close()
 	return true
@@ -103,9 +100,7 @@ func GetUserLikes(postid int, userid int) []int {
 	}
 	db.Close()
 	return likes
-} 
-
-
+}
 
 func GetUserDislikes(postid int, userid int) []int {
 	var likes []int
@@ -134,8 +129,7 @@ func GetUserDislikes(postid int, userid int) []int {
 
 	db.Close()
 	return likes
-} 
-
+}
 
 func GetLikesByPostID(postid int) []int {
 	var likes []int
@@ -164,7 +158,7 @@ func GetLikesByPostID(postid int) []int {
 
 	db.Close()
 	return likes
-} 
+}
 
 func GetDislikesByPostID(postid int) []int {
 	var likes []int
@@ -193,4 +187,4 @@ func GetDislikesByPostID(postid int) []int {
 
 	db.Close()
 	return likes
-} 
+}

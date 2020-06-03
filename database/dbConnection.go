@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-    _ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func DbConnection() (*sql.DB, error) {
@@ -49,7 +49,6 @@ func DbConnection() (*sql.DB, error) {
 
 	comments.Exec()
 
-
 	likes, err := db.Prepare("CREATE TABLE IF NOT EXISTS likes(userid int, postid int, like bool)")
 
 	if err != nil {
@@ -61,7 +60,16 @@ func DbConnection() (*sql.DB, error) {
 
 	likes.Exec()
 
+	commentLikes, err := db.Prepare("CREATE TABLE IF NOT EXISTS commentlikes(commentid int, userid int, like bool)")
 
+	if err != nil {
+		fmt.Print("likes table creation err!: ")
+		fmt.Println(err)
+		db.Close()
+		return db, err
+	}
+
+	commentLikes.Exec()
 
 	return db, nil
 }

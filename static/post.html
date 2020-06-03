@@ -60,6 +60,8 @@
             <div class="col-md-8" style="border: 1px solid rgb(231, 231, 231); border-radius: 5px;">
                 <h3 class="col-md-6" style="font-weight: 400;"><strong>{{$comment.User.Username}}:</strong></h3>
                 <p class="col-md-8">{{$comment.Comment}}</p>
+                <div class="col-md-12">{{$comment.Likes}} <a href="/commentlike?id={{$comment.CommentID}}&postid={{$comment.PostID}}&like=1"><i class="glyphicon glyphicon-thumbs-up"></i></a>  {{$comment.Dislikes}} <a href="/commentlike?id={{$comment.CommentID}}&postid={{$comment.PostID}}&like=0"><i class="glyphicon glyphicon-thumbs-down"></i></a> </div>
+
               </div>
         </div>
         <br>

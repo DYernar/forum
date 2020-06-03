@@ -77,6 +77,9 @@
     </div>
 
     <div class="container">
+      {{if not .Posts}}
+      <h3>No posts found</h3>
+      {{else}}
       {{range $post := .Posts}}
       <div id="postid{{$post.PostID}}"></div>
       <h3>{{$post.Title}}</h3>
@@ -93,6 +96,7 @@
         </div>
       </div>
       <hr>
+      {{end}}
       {{end}}
     </div>
     <div class="container">
