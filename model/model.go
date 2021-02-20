@@ -27,6 +27,8 @@ type Post struct {
 	Title    string
 	Text     string
 	Category string
+	Image 	 string
+	Ext 	 string
 	Added    time.Time
 	Comments []Comment
 	Likes    []int

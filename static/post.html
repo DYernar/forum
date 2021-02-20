@@ -2,6 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .width1200{
+            max-width: 1200px;
+            display: block;
+            min-height: 100px;
+            overflow: scroll;
+        }
+    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title></title>
@@ -31,7 +39,8 @@
     <div class="container">
         <h1>{{.Post.Title}}</h1>
         <div class="container">
-            <p>{{.Post.Text}}</p>
+            <img src="/images/{{.Post.Image}}" width="300">
+            <p class="width1200">{{.Post.Text}}</p>
         </div>
     </div>
     {{if not .LoggedIn}}

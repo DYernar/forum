@@ -27,7 +27,7 @@ func DbConnection() (*sql.DB, error) {
 
 	users.Exec()
 
-	posts, err := db.Prepare("CREATE TABLE IF NOT EXISTS posts(userid int, title varchar, text varchar, category varchar)")
+	posts, err := db.Prepare("CREATE TABLE IF NOT EXISTS posts(userid int, title varchar, text varchar, category varchar,image varchar)")
 
 	if err != nil {
 		fmt.Print("post table creation err!: ")

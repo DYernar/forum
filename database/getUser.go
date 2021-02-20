@@ -4,10 +4,19 @@ import (
 	"database/sql"
 	"fmt"
 	model "forum/model"
-
 	"golang.org/x/crypto/bcrypt"
 )
-
+func  GetLastPost() int{
+	var i=0;
+	db, _ := DbConnection()
+	row,err := db.Query("select rowid from posts")
+	fmt.Println(err)
+	defer row.Close()
+	for row.Next(){
+		i++;
+	}
+	return i
+}
 func GetAllUsers() []model.User {
 	db, _ := DbConnection()
 

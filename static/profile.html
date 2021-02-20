@@ -2,6 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        .width1200{
+            max-width: 1200px;
+            display: block;
+            min-height: 100px;
+            overflow: scroll;
+        }
+    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title></title>
@@ -39,7 +47,7 @@
         </div>
     </div>
     <div class="container">
-        <form action="/profile" method="POST">
+        <form action="/profile" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <input type="text" class="form-control" name="title" placeholder="title">
             </div>
@@ -55,6 +63,7 @@
                     {{end}}
                 </select>
             </div>
+            <input type="file" name="myFile" id="myFile">
             <button class="btn btn-primary">Add Post</button>
         </form>
     </div>
@@ -63,7 +72,8 @@
         <h1>My posts:</h1>
         {{range $post := .User.Posts}}
         <h3>{{$post.Title}}</h3>
-        <p>{{$post.Text}}</p>
+        <p class="width1200">{{$post.Text}}</p>
+        <img src="/images/{{$post.Image}}" width="300">
         <div class="container">
           <div class="col-md-10">
             <div class="col-md-4">{{len $post.Likes}} likes  {{len $post.Dislikes}} dislikes {{len $post.Comments}} comments</div>

@@ -22,6 +22,12 @@
               padding-top: 50px;
               padding-bottom: 20px;
           }
+          .width1200{
+            max-width: 1200px;
+            display: block;
+            min-height: 100px;
+            overflow: scroll;
+          }
       </style>
       <title>Forum</title>
 
@@ -83,7 +89,8 @@
       {{range $post := .Posts}}
       <div id="postid{{$post.PostID}}"></div>
       <h3>{{$post.Title}}</h3>
-      <p>{{$post.Text}}</p>
+      <p class="width1200">{{$post.Text}}</p>
+      <img src="/images/{{$post.Image}}" width="300">
       <div class="container">
         <div class="col-md-10">
           <div class="col-md-2">category: {{$post.Category}}</div>
