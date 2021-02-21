@@ -3,11 +3,13 @@
 <html lang="en">
 <head>
     <style>
-        .width1200{
-            max-width: 1200px;
-            display: block;
-            min-height: 100px;
-            overflow: scroll;
+
+        .wrap { 
+            white-space: pre-wrap;      /* CSS3 */   
+            white-space: -moz-pre-wrap; /* Firefox */    
+            white-space: -pre-wrap;     /* Opera <7 */   
+            white-space: -o-pre-wrap;   /* Opera 7 */    
+            word-wrap: break-word;      /* IE */
         }
     </style>
     <meta charset="utf-8">
@@ -37,10 +39,10 @@
 
     </div>
     <div class="container">
-        <h1>{{.Post.Title}}</h1>
+        <h1 class="wrap">{{.Post.Title}}</h1>
         <div class="container">
             <img src="/images/{{.Post.Image}}" width="300">
-            <p class="width1200">{{.Post.Text}}</p>
+            <p class="wrap">{{.Post.Text}}</p>
         </div>
     </div>
     {{if not .LoggedIn}}

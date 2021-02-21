@@ -1,10 +1,9 @@
 package database
 
-import(
-	model "forum/model"
+import (
 	"fmt"
+	model "forum/model"
 )
-
 
 func InsertPost(post model.Post) bool {
 	db, err := DbConnection()
@@ -59,7 +58,6 @@ func GetAllPosts() []model.Post {
 	return posts
 }
 
-
 func GetPostsByUserID(userid int) []model.Post {
 	var posts []model.Post
 	db, err := DbConnection()
@@ -89,7 +87,7 @@ func GetPostsByUserID(userid int) []model.Post {
 
 	db.Close()
 	return posts
-} 
+}
 
 func GetPostByPostID(postid int) model.Post {
 	var p model.Post
@@ -115,4 +113,4 @@ func GetPostByPostID(postid int) model.Post {
 
 	db.Close()
 	return p
-} 
+}

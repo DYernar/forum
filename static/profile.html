@@ -3,11 +3,13 @@
 <html lang="en">
 <head>
     <style>
-        .width1200{
-            max-width: 1200px;
-            display: block;
-            min-height: 100px;
-            overflow: scroll;
+
+        .wrap { 
+            white-space: pre-wrap;      /* CSS3 */   
+            white-space: -moz-pre-wrap; /* Firefox */    
+            white-space: -pre-wrap;     /* Opera <7 */   
+            white-space: -o-pre-wrap;   /* Opera 7 */    
+            word-wrap: break-word;       /* IE */
         }
     </style>
     <meta charset="utf-8">
@@ -33,16 +35,16 @@
     <div class="jumbotron">
         <div class="container">
             <h2>Profile page</h2>
-            <table class="table">
-                <tr>
-                    <th>Username</th>
-                    <th>{{.User.Username}}</th>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <th>{{.User.Email}}</th>
-                </tr>
-            </table>
+            <br>
+            <h2>Username</h2>
+            <br>
+            <p class="wrap">{{.User.Username}}</p>
+            <br>
+            <h2>Email</h2><br>
+            <p class="wrap">{{.User.Email}}</p>
+            <br>
+
+          
             <br>
         </div>
     </div>
@@ -71,8 +73,9 @@
     <div class="container">
         <h1>My posts:</h1>
         {{range $post := .User.Posts}}
-        <h3>{{$post.Title}}</h3>
-        <p class="width1200">{{$post.Text}}</p>
+        <div class="wrap"><h3>{{$post.Title}}</h3></div>
+        <br>
+        <p class="wrap">{{$post.Text}}</p>
         <img src="/images/{{$post.Image}}" width="300">
         <div class="container">
           <div class="col-md-10">

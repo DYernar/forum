@@ -22,11 +22,12 @@
               padding-top: 50px;
               padding-bottom: 20px;
           }
-          .width1200{
-            max-width: 1200px;
-            display: block;
-            min-height: 100px;
-            overflow: scroll;
+          .wrap { 
+            white-space: pre-wrap;      /* CSS3 */   
+            white-space: -moz-pre-wrap; /* Firefox */    
+            white-space: -pre-wrap;     /* Opera <7 */   
+            white-space: -o-pre-wrap;   /* Opera 7 */    
+            word-wrap: break-word;      /* IE */
           }
       </style>
       <title>Forum</title>
@@ -88,8 +89,9 @@
       {{else}}
       {{range $post := .Posts}}
       <div id="postid{{$post.PostID}}"></div>
-      <h3>{{$post.Title}}</h3>
-      <p class="width1200">{{$post.Text}}</p>
+      <h3 class="wrap">{{$post.Title}}</h3>
+      <br>
+      <p class="wrap">{{$post.Text}}</p>
       <img src="/images/{{$post.Image}}" width="300">
       <div class="container">
         <div class="col-md-10">
@@ -109,7 +111,7 @@
     <div class="container">
       <hr>
       <footer>
-        <p>&copy; Company 2015</p>
+        <p>&copy; DY 2020</p>
       </footer>
     </div>      
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
