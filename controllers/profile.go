@@ -1,14 +1,14 @@
 package controller
 
 import (
+	"fmt"
 	database "forum/database"
 	model "forum/model"
 	"html/template"
-	"net/http"
-	"fmt"
 	"io/ioutil"
-	"strconv"
+	"net/http"
 	"os"
+	"strconv"
 )
 
 func Profile(w http.ResponseWriter, r *http.Request) {
@@ -39,26 +39,31 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 			fmt.Printf("Uploaded File: %+v\n", handler.Filename)
 			fmt.Printf("File Size: %+v\n", handler.Size)
 			fmt.Printf("MIME Header: %+v\n", handler.Header)
-			var extension string;
-			for i:=0;i<len(handler.Filename);i++ {
-				if handler.Filename[i]=='.'{
-					for j:=i;j<len(handler.Filename);j++{
-						extension = extension+string(handler.Filename[j])
+			var extension string
+			for i := 0; i < len(handler.Filename); i++ {
+				if handler.Filename[i] == '.' {
+					for j := i; j < len(handler.Filename); j++ {
+						extension = extension + string(handler.Filename[j])
 					}
-					break;
+					break
 				}
+			}
+			if extension != ".jpg" && extension != ".png" && extension != ".gif" {
+				http.Redirect(w, r, "/profile", http.StatusSeeOther)
+				return
 			}
 			var name string
 			lastPost := database.GetLastPost()
-			name=strconv.Itoa(lastPost)+extension
+			name = strconv.Itoa(lastPost) + extension
 			fmt.Print(name)
-		
+
 			fileBytes, err := ioutil.ReadAll(file)
-			if err != nil {
-				fmt.Println(err)
-			}
+
 			err = ioutil.WriteFile(name, fileBytes, 0644)
-			err =  os.Rename(name, "./images/"+name)
+			if err != nil {
+				fmt.Println("HEREEEEE")
+			}
+			err = os.Rename(name, "./images/"+name)
 			fmt.Println(err)
 			r.ParseForm()
 			var newPost model.Post
