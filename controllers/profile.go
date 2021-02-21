@@ -48,7 +48,7 @@ func Profile(w http.ResponseWriter, r *http.Request) {
 					break
 				}
 			}
-			if extension != ".jpg" && extension != ".png" && extension != ".gif" {
+			if extension != ".jpg" && extension != ".png" && extension != ".gif" && extension != ".jpeg" {
 				http.Redirect(w, r, "/profile", http.StatusSeeOther)
 				return
 			}
