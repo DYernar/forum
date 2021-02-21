@@ -41,7 +41,10 @@
     <div class="container">
         <h1 class="wrap">{{.Post.Title}}</h1>
         <div class="container">
+            {{if not .Post.Image}}
+            {{else}}
             <img src="/images/{{.Post.Image}}" width="300">
+            {{end}}
             <p class="wrap">{{.Post.Text}}</p>
         </div>
     </div>

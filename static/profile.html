@@ -51,10 +51,10 @@
     <div class="container">
         <form action="/profile" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="title" placeholder="title">
+                <input type="text" class="form-control" name="title" placeholder="title" value="{{if not .CurrentPost}} {{else}} {{.CurrentPost.Title}} {{end}}">
             </div>
             <div class="form-group">
-                <textarea name="text" id="newpost" rows="8" class="form-control rounded-0" style="border: 1px solid green;" required></textarea>
+                <textarea name="text" id="newpost" rows="8" class="form-control rounded-0" style="border: 1px solid green;"  required>{{if not .CurrentPost}} {{else}} {{.CurrentPost.Text}} {{end}}</textarea>
             </div>
             <div class="form-group">
                 <label for="category">Choose category</label>
@@ -65,6 +65,7 @@
                     {{end}}
                 </select>
             </div>
+            {{if not .Error}} {{else}} <p style="background-color: red;">{{.Error}}</p>{{end}}
             <input type="file" name="myFile" id="myFile">
             <button class="btn btn-primary">Add Post</button>
         </form>
@@ -76,7 +77,10 @@
         <div class="wrap"><h3>{{$post.Title}}</h3></div>
         <br>
         <p class="wrap">{{$post.Text}}</p>
-        <img src="/images/{{$post.Image}}" width="300">
+        {{if not $post.Image}}
+            {{else}}
+            <img src="/images/{{$post.Image}}" width="300">
+            {{end}}
         <div class="container">
           <div class="col-md-10">
             <div class="col-md-4">{{len $post.Likes}} likes  {{len $post.Dislikes}} dislikes {{len $post.Comments}} comments</div>

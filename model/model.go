@@ -27,8 +27,8 @@ type Post struct {
 	Title    string
 	Text     string
 	Category string
-	Image 	 string
-	Ext 	 string
+	Image    string
+	Ext      string
 	Added    time.Time
 	Comments []Comment
 	Likes    []int
@@ -36,10 +36,12 @@ type Post struct {
 }
 
 type AllData struct {
-	LoggedIn   bool
-	User       User
-	Posts      []Post
-	Categories []string
+	LoggedIn    bool
+	User        User
+	Posts       []Post
+	Categories  []string
+	Error       string
+	CurrentPost Post
 }
 
 type Result struct {

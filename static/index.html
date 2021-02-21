@@ -92,7 +92,10 @@
       <h3 class="wrap">{{$post.Title}}</h3>
       <br>
       <p class="wrap">{{$post.Text}}</p>
+      {{if not $post.Image}}
+      {{else}}
       <img src="/images/{{$post.Image}}" width="300">
+      {{end}}
       <div class="container">
         <div class="col-md-10">
           <div class="col-md-2">category: {{$post.Category}}</div>
