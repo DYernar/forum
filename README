@@ -1,0 +1,6 @@
+to run the app : go run main.go
+or simply: ./forum
+
+to run with docker: 
+    1. docker build -t forum .
+    2. docker run forum
