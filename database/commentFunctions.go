@@ -139,6 +139,7 @@ func GetCommentLikes(commentid int) int {
 	for rows.Next() {
 		var l bool
 		rows.Scan(&l)
+		fmt.Println(l)
 		likes = append(likes, l)
 	}
 	db.Close()

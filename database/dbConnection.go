@@ -81,6 +81,7 @@ func DropTables() {
 	_, _ = db.Exec("drop table posts")
 	_, _ = db.Exec("drop table comments")
 	_, _ = db.Exec("drop table likes")
+	_, _ = db.Exec("drop table commentlikes")
 
 	db.Close()
 }
